@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using IEP.Api.Data;
 
 namespace IEP.Api
 {
@@ -34,6 +36,9 @@ namespace IEP.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IEP.Api", Version = "v1" });
             });
+
+            services.AddDbContext<IEPApiContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("IEPApiContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
