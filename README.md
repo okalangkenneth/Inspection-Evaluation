@@ -11,7 +11,7 @@ The project is designed in such a way that many of the input operations are done
 
 ### Project structure
 LMS.G3
-* ├─LMS.API [API for LMS]
+* ├─LMS.API [API for IEP]
 * ├─LMS.ApiTests [Tests for the API]
 * ├─LMS.Core [belongs to MVC]
 * ├─LMS.Data [belongs to MVC]
