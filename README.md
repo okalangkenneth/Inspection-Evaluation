@@ -10,13 +10,7 @@ This project is being designed to overcome most of the manual processes that wer
 The project is designed in such a way that many of the input operations are done through forms. The forms are capable of validating and checking the integrity and correctness of the input. The database will be built from Entity Framework according to codefirst method. Frontend will be from Bootstrap. The dynamic functionality in the front-end will be written with javascript.The application will have a .NET Core API that will intergarte with MVC Core web interface.
 
 ### Project structure
-LMS.G3
-* ├─LMS.API [API for IEP]
-* ├─LMS.ApiTests [Tests for the API]
-* ├─LMS.Core [belongs to MVC]
-* ├─LMS.Data [belongs to MVC]
-* ├─LMS.Tests [Tests of the MVC]
-* └─LMS.Web [MVC main part]
+
 
 
 
