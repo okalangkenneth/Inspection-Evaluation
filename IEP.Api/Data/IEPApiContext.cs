@@ -16,6 +16,6 @@ namespace IEP.Api.Data
 
         public DbSet<IEP.Core.Department> Department { get; set; }
 
-        public DbSet<IEP.Core.Jobs> Jobs { get; set; }
+        public DbSet<IEP.Core.Job> Jobs { get; set; }
     }
 }
