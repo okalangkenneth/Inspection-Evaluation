@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace IEP.Api.Model.Dto
 {
-    public class JobDto
+    public class SampleDto
     {
-
     }
 }

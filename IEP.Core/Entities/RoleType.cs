@@ -8,11 +8,11 @@ namespace IEP.Core.Entities
 {
    public class RoleType
     {
-            Administrator,
-            Project Manager,
-            Client,
-            Inspector,
-            Quality Controller
+            //Administrator,
+            //Project Manager,
+            //Client,
+            //Inspector,
+            //Quality Controller
 
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using IEP.Api.Model.Entities;
-using IEP.Core.Entities;
 
-namespace IEP.Core
+namespace IEP.Api.Model.Entities
 {
     public class Job
     {
@@ -25,7 +22,5 @@ namespace IEP.Core
 
         public ICollection<Sample> Samples { get; set; }
 
-        
-       
     }
 }

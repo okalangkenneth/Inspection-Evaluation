@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using IEP.Api.Model.Entities;
-using IEP.Core.Entities;
 
-namespace IEP.Core
+namespace IEP.Api.Model.Entities
 {
     public class Department
     {
@@ -16,7 +13,6 @@ namespace IEP.Core
         public ICollection<Job> Jobs { get; set; }
         public ICollection<Inspector> Inspectors { get; set; }
         public ICollection<Sample> Samples { get; set; }
-
 
     }
 }

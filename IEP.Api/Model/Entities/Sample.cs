@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using IEP.Api.Model.Entities;
 
-namespace IEP.Core.Entities
+namespace IEP.Api.Model.Entities
 {
     public class Sample
     {
@@ -15,20 +13,11 @@ namespace IEP.Core.Entities
         public DateTime Picked { get; set; }
 
         public int DepartmentId { get; set; }
-        public Department Department { get; set;}
+        public Department Department { get; set; }
         public int LocationId { get; set; }
         public Location Location { get; set; }
         public int InspectId { get; set; }
         public Inspector Inspector { get; set; }
-
-        
-
-        
-       
-
-       
-        
-
 
     }
 }
