@@ -18,9 +18,7 @@ namespace IEP.Core.Entities
         public QualityReport QualityReport { get; set; }
 
         
-        public int? ActivityId { get; set; }
-        public Activity Activity { get; set; }
-
+       
         public string UserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 

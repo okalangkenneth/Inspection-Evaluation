@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace IEP.Api.Model.Dto
 {
-    public class ClientDto
+    public class ClientWithJobCreation
     {
-        public int Id { get; set; }
         public string CompanyName { get; set; }
+        public int JobId { get; set; }
+       
     }
 }

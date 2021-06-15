@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using IEP.Core;
+using IEP.Api.Model.Entities;
 
 namespace IEP.Api.Data
 {
@@ -14,8 +14,8 @@ namespace IEP.Api.Data
         {
         }
 
-        public DbSet<IEP.Core.Department> Department { get; set; }
+        public DbSet<IEP.Api.Model.Entities.Client> Client { get; set; }
 
-        public DbSet<IEP.Core.Job> Jobs { get; set; }
+        public DbSet<IEP.Api.Model.Entities.Job> Job { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace IEP.Api.Model.Entities
         public int LoactionId { get; set; }
         public Location Location { get; set; }
 
-        public int InspectroId { get; set; }
+        public int InspectorId { get; set; }
         public Inspector Inspector { get; set; }
 
         public ICollection<Job> Jobs { get; set; }

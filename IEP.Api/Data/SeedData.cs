@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bogus;
-using IEP.Core;
+using IEP.Api.Model.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,65 +11,77 @@ namespace IEP.Api.Data
 {
     public class SeedData
     {
-        private static Faker _faker;
-        private const int _maxJobs = 16;
-        private const int _maxDepartments = 6;
         internal static async Task InitializeAsync(IServiceProvider services)
         {
-            using var db = services.GetRequiredService<IEPApiContext>();
+            using var db = new IEPApiContext(services.GetRequiredService<DbContextOptions<IEPApiContext>>());
+            if (!await db.Client.AnyAsync()) return;
+
+            
+
+            var faker = new Faker("sv");
+            var clients = new List<Client>();
+
+
+            for (int i = 0; i < 50; i++)
             {
-                _faker = new Faker();
-
-                // Fill the database only if Jobs and Department tables are empty 
-                if (db.Department.Any() && db.Jobs.Any())
+                clients.Add(new Model.Entities.Client
                 {
-                    return;
-                }
-                Random rnd = new();
-
-                // Create departments
-                var departments = new List<Department>();
-                for (var i = 0; i < _maxDepartments; i++)
-                {
-                    var department = new Department
+                    CompanyName = faker.Company.CompanyName() + faker.Random.Word(),
+                    Location = new Location()
                     {
-                        Name = _faker.Name.FindName(),
-                        Jobs = new List<Job>()
-                    };
-                    departments.Add(department);
-                }
+                        Address = faker.Address.StreetAddress(),
+                        CityTown = faker.Address.City()
 
-                // Create Jobs
-                var jobs = new List<Job>();
-                for (var i = 0; i < _maxJobs; i++)
-                {
-                    var job = new Job
+                    },
+                    Inspector = new Inspector()
                     {
-                        Title = _faker.Commerce.ProductName(),
-                        InspectionDateTime = _faker.Date.Past(10, DateTime.Parse("2021-03-01")).Date,
-                        Departments = new List<Department>()
-                    };
-                    jobs.Add(job);
-                }
-                //// Associate Jobs with Departments
-                //// 1. Go over all the jobs and to each add a random department
-                //foreach (var job in jobs)
-                //{
-                //    var department = departments[rnd.Next(_maxDepartments)];
-                //    job.Departments.Add(department);
-                //}
-                //// 2. Go over all the departments and to each add some job
-                //foreach (var department in departments)
-                //{
-                //    var job = jobs[rnd.Next(_maxJobs)];
-                //    department.Jobs.Add(job);
-                //}
-                //await db.Jobs.AddRangeAsync(jobs);
-                //await db.Department.AddRangeAsync(departments);
+                        FirstName = faker.Name.FirstName(),
+                        LastName = faker.Name.LastName(),
+                        Department = faker.
+                        Samples = faker.Name.Random.Word()
+                    },
 
-                await db.SaveChangesAsync();
+                    Jobs = new Job()
+                    {
+                        Title = faker.Commerce.Department(),
+                        InspectionDateTime = DateTime.Now.AddDays(faker.Random.Int(-20, 20)),
+                        Location = new Location()
+                        {
+                            Address = faker.Address.StreetAddress(),
+                            CityTown = faker.Address.City()
+
+                        },
+                        Department = faker.Commerce.Department(),
+                        Inspector = faker.
+                        Samples = faker.Name.Random.Word()
+
+                    },
+
+
+                    Samples = new Sample()
+                    {
+                        ProduceName = faker.Name.FullName(),
+                        Description = faker.Hacker.Verb(),
+                        Picked = DateTime.Now.AddDays(faker.Random.Int(-20, 20)),
+                        Department = faker.Commerce.Department(),
+                        Location = new Location()
+                        {
+                            Address = faker.Address.StreetAddress(),
+                            CityTown = faker.Address.City()
+                        }
+                    }
+
+                });
+
+
             }
         }
-
     }
-}
+
+}   
+
+   
+
+
+
+

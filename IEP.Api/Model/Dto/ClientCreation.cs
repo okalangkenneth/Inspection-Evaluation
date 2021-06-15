@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace IEP.Api.Model.Dto
 {
-    public class ClientDto
+    public class ClientCreation
     {
-        public int Id { get; set; }
         public string CompanyName { get; set; }
     }
 }
