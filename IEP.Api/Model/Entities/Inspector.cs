@@ -24,7 +24,8 @@ namespace IEP.Api.Model.Entities
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
-        public ICollection<Sample> Samples { get; set; }
+        public ICollection<Client> Clients { get; set; }
+
 
     }
 }

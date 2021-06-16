@@ -10,15 +10,16 @@ namespace IEP.Api.Model.Entities
         public int Id { get; set; }
         public string CompanyName { get; set; }
 
-
-        public int LoactionId { get; set; }
+        public int LocationId { get; set; }
         public Location Location { get; set; }
 
-        public int InspectorId { get; set; }
-        public Inspector Inspector { get; set; }
+        
+        public ICollection<Inspector> Inspectors { get; set; }
 
         public ICollection<Job> Jobs { get; set; }
-        public ICollection<Sample> Samples { get; set;}
+
+        public ICollection<Sample> Samples { get; set; }
+        
 
     }
 }

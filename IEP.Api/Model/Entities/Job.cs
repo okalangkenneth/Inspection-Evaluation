@@ -19,15 +19,18 @@ namespace IEP.Api.Model.Entities
         public DateTime InspectionDateTime { get; set; }
 
 
-        public int LocationId { get; set; }
-        public Location Location { get; set; }
+       public int ClientId { get; set; }
+
+       public Client Client { get; set; }
+
+
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
         public int InspectorId { get; set; }
         public Inspector Inspector { get; set; }
 
-        public ICollection<Sample> Samples { get; set; }
+       
 
     }
 }

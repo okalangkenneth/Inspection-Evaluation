@@ -9,7 +9,8 @@ namespace IEP.Api.Model.Entities
     {
         public int Id { get; set; }
         public string Address { get; set; }
+
         public string CityTown { get; set; }
-       
+
     }
 }

@@ -24,6 +24,7 @@ namespace IEP.Api.Data
 
             for (int i = 0; i < 50; i++)
             {
+
                 clients.Add(new Model.Entities.Client
                 {
                     CompanyName = faker.Company.CompanyName() + faker.Random.Word(),
@@ -31,54 +32,47 @@ namespace IEP.Api.Data
                     {
                         Address = faker.Address.StreetAddress(),
                         CityTown = faker.Address.City()
-
                     },
-                    Inspector = new Inspector()
+                    Inspectors = new Inspector[]
                     {
-                        FirstName = faker.Name.FirstName(),
-                        LastName = faker.Name.LastName(),
-                        Department = faker.
-                        Samples = faker.Name.Random.Word()
-                    },
-
-                    Jobs = new Job()
-                    {
-                        Title = faker.Commerce.Department(),
-                        InspectionDateTime = DateTime.Now.AddDays(faker.Random.Int(-20, 20)),
-                        Location = new Location()
+                        new Inspector
                         {
-                            Address = faker.Address.StreetAddress(),
-                            CityTown = faker.Address.City()
-
-                        },
-                        Department = faker.Commerce.Department(),
-                        Inspector = faker.
-                        Samples = faker.Name.Random.Word()
-
-                    },
-
-
-                    Samples = new Sample()
-                    {
-                        ProduceName = faker.Name.FullName(),
-                        Description = faker.Hacker.Verb(),
-                        Picked = DateTime.Now.AddDays(faker.Random.Int(-20, 20)),
-                        Department = faker.Commerce.Department(),
-                        Location = new Location()
-                        {
-                            Address = faker.Address.StreetAddress(),
-                            CityTown = faker.Address.City()
+                            FirstName = faker.Name.FirstName(),
+                            LastName = faker.Name.LastName()
                         }
-                    }
+                    },
 
-                });
+                    Jobs = new Job[]
+                    {
+                        new Job
+                        {
+                            Title = faker.Commerce.Department(),
+                            InspectionDateTime = DateTime.Now.AddDays(faker.Random.Int(-20, 20))
+                        }
+                    },
 
+                    Samples = new Sample[]
+                    {
+                        new Sample
+                        {
+                            ProduceName=faker.Commerce.ProductName()
+                        },
+
+                        
+                     }
+
+                }); 
 
             }
+
+           
         }
+
     }
 
-}   
+
+} 
+
 
    
 

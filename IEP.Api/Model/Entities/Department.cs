@@ -12,7 +12,7 @@ namespace IEP.Api.Model.Entities
 
         public ICollection<Job> Jobs { get; set; }
         public ICollection<Inspector> Inspectors { get; set; }
-        public ICollection<Sample> Samples { get; set; }
+       
 
     }
 }
