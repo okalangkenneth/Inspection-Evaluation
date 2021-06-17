@@ -55,16 +55,19 @@ namespace IEP.Api.Data
                     {
                         new Sample
                         {
+
                             ProduceName=faker.Commerce.ProductName()
+
                         },
 
-                        
+
                      }
 
                 }); 
 
             }
-
+            db.AddRange(clients);
+            await db.SaveChangesAsync();
            
         }
 

@@ -13,7 +13,7 @@ namespace IEP.Api.Model.Entities
         public int LocationId { get; set; }
         public Location Location { get; set; }
 
-        
+
         public ICollection<Inspector> Inspectors { get; set; }
 
         public ICollection<Job> Jobs { get; set; }
