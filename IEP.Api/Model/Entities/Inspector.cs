@@ -19,12 +19,14 @@ namespace IEP.Api.Model.Entities
         [Required]
         [MaxLength(50)]
         public string LastName { get; set; }
+        public string Email { get; set; }
 
 
-        public int DepartmentId { get; set; }
-        public Department Department { get; set; }
+        public ICollection<Sample> Samples { get; set; }
 
-        public ICollection<Client> Clients { get; set; }
+       
+
+
 
 
     }

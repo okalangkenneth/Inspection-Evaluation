@@ -1,18 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using IEP.Api.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
-using IEP.Api.Data;
 
 
 namespace IEP.Api
@@ -40,10 +35,6 @@ namespace IEP.Api
 
             services.AddDbContext<IEPApiContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("IEPApiContext")));
-
-            
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

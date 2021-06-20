@@ -4,20 +4,37 @@ using IEP.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IEP.Api.Migrations
 {
     [DbContext(typeof(IEPApiContext))]
-    partial class IEPApiContextModelSnapshot : ModelSnapshot
+    [Migration("20210619212345_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("ClientInspector", b =>
+                {
+                    b.Property<int>("ClientsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InspectorsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ClientsId", "InspectorsId");
+
+                    b.HasIndex("InspectorsId");
+
+                    b.ToTable("ClientInspector");
+                });
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Client", b =>
                 {
@@ -61,9 +78,6 @@ namespace IEP.Api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
@@ -81,8 +95,6 @@ namespace IEP.Api.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
 
                     b.HasIndex("DepartmentId");
 
@@ -173,6 +185,21 @@ namespace IEP.Api.Migrations
                     b.ToTable("Sample");
                 });
 
+            modelBuilder.Entity("ClientInspector", b =>
+                {
+                    b.HasOne("IEP.Api.Model.Entities.Client", null)
+                        .WithMany()
+                        .HasForeignKey("ClientsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IEP.Api.Model.Entities.Inspector", null)
+                        .WithMany()
+                        .HasForeignKey("InspectorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("IEP.Api.Model.Entities.Client", b =>
                 {
                     b.HasOne("IEP.Api.Model.Entities.Location", "Location")
@@ -186,10 +213,6 @@ namespace IEP.Api.Migrations
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Inspector", b =>
                 {
-                    b.HasOne("IEP.Api.Model.Entities.Client", null)
-                        .WithMany("Inspectors")
-                        .HasForeignKey("ClientId");
-
                     b.HasOne("IEP.Api.Model.Entities.Department", null)
                         .WithMany("Inspectors")
                         .HasForeignKey("DepartmentId");
@@ -251,8 +274,6 @@ namespace IEP.Api.Migrations
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Client", b =>
                 {
-                    b.Navigation("Inspectors");
-
                     b.Navigation("Jobs");
 
                     b.Navigation("Samples");

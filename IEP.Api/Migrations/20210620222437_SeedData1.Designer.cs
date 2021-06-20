@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IEP.Api.Migrations
 {
     [DbContext(typeof(IEPApiContext))]
-    [Migration("20210617073645_Init")]
-    partial class Init
+    [Migration("20210620222437_SeedData1")]
+    partial class SeedData1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,21 +20,6 @@ namespace IEP.Api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("ClientInspector", b =>
-                {
-                    b.Property<int>("ClientsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("InspectorsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClientsId", "InspectorsId");
-
-                    b.HasIndex("InspectorsId");
-
-                    b.ToTable("ClientInspector");
-                });
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Client", b =>
                 {
@@ -78,8 +63,14 @@ namespace IEP.Api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DepartmentId")
+                    b.Property<int?>("ClientId")
                         .HasColumnType("int");
+
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -91,14 +82,11 @@ namespace IEP.Api.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("SampleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
+                    b.HasIndex("ClientId");
 
-                    b.HasIndex("SampleId");
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Inspector");
                 });
@@ -167,7 +155,10 @@ namespace IEP.Api.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LocationId")
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InspectorId")
                         .HasColumnType("int");
 
                     b.Property<string>("ProduceName")
@@ -177,24 +168,11 @@ namespace IEP.Api.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("LocationId");
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("InspectorId");
 
                     b.ToTable("Sample");
-                });
-
-            modelBuilder.Entity("ClientInspector", b =>
-                {
-                    b.HasOne("IEP.Api.Model.Entities.Client", null)
-                        .WithMany()
-                        .HasForeignKey("ClientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IEP.Api.Model.Entities.Inspector", null)
-                        .WithMany()
-                        .HasForeignKey("InspectorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Client", b =>
@@ -210,17 +188,13 @@ namespace IEP.Api.Migrations
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Inspector", b =>
                 {
-                    b.HasOne("IEP.Api.Model.Entities.Department", "Department")
+                    b.HasOne("IEP.Api.Model.Entities.Client", null)
                         .WithMany("Inspectors")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClientId");
 
-                    b.HasOne("IEP.Api.Model.Entities.Sample", null)
+                    b.HasOne("IEP.Api.Model.Entities.Department", null)
                         .WithMany("Inspectors")
-                        .HasForeignKey("SampleId");
-
-                    b.Navigation("Department");
+                        .HasForeignKey("DepartmentId");
                 });
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Job", b =>
@@ -258,19 +232,29 @@ namespace IEP.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IEP.Api.Model.Entities.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId")
+                    b.HasOne("IEP.Api.Model.Entities.Department", "Department")
+                        .WithMany("Samples")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IEP.Api.Model.Entities.Inspector", "Inspector")
+                        .WithMany("Samples")
+                        .HasForeignKey("InspectorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Client");
 
-                    b.Navigation("Location");
+                    b.Navigation("Department");
+
+                    b.Navigation("Inspector");
                 });
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Client", b =>
                 {
+                    b.Navigation("Inspectors");
+
                     b.Navigation("Jobs");
 
                     b.Navigation("Samples");
@@ -281,11 +265,13 @@ namespace IEP.Api.Migrations
                     b.Navigation("Inspectors");
 
                     b.Navigation("Jobs");
+
+                    b.Navigation("Samples");
                 });
 
-            modelBuilder.Entity("IEP.Api.Model.Entities.Sample", b =>
+            modelBuilder.Entity("IEP.Api.Model.Entities.Inspector", b =>
                 {
-                    b.Navigation("Inspectors");
+                    b.Navigation("Samples");
                 });
 #pragma warning restore 612, 618
         }

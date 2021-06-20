@@ -12,5 +12,6 @@ namespace IEP.Api.Model.Entities
 
         public string CityTown { get; set; }
 
+       
     }
 }

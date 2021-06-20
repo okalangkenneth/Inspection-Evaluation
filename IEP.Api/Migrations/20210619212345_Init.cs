@@ -35,6 +35,28 @@ namespace IEP.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Inspector",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DepartmentId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inspector", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Inspector_Department_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Department",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Client",
                 columns: table => new
                 {
@@ -52,61 +74,6 @@ namespace IEP.Api.Migrations
                         principalTable: "Location",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sample",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProduceName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationId = table.Column<int>(type: "int", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sample", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Sample_Client_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Client",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Sample_Location_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Location",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Inspector",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    DepartmentId = table.Column<int>(type: "int", nullable: false),
-                    SampleId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Inspector", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Inspector_Department_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Department",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Inspector_Sample_SampleId",
-                        column: x => x.SampleId,
-                        principalTable: "Sample",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,6 +135,40 @@ namespace IEP.Api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Sample",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProduceName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InspectorId = table.Column<int>(type: "int", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sample", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sample_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sample_Department_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Department",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sample_Inspector_InspectorId",
+                        column: x => x.InspectorId,
+                        principalTable: "Inspector",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Client_LocationId",
                 table: "Client",
@@ -182,11 +183,6 @@ namespace IEP.Api.Migrations
                 name: "IX_Inspector_DepartmentId",
                 table: "Inspector",
                 column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Inspector_SampleId",
-                table: "Inspector",
-                column: "SampleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Job_ClientId",
@@ -209,9 +205,14 @@ namespace IEP.Api.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sample_LocationId",
+                name: "IX_Sample_DepartmentId",
                 table: "Sample",
-                column: "LocationId");
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sample_InspectorId",
+                table: "Sample",
+                column: "InspectorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -223,19 +224,19 @@ namespace IEP.Api.Migrations
                 name: "Job");
 
             migrationBuilder.DropTable(
-                name: "Inspector");
-
-            migrationBuilder.DropTable(
-                name: "Department");
-
-            migrationBuilder.DropTable(
                 name: "Sample");
 
             migrationBuilder.DropTable(
                 name: "Client");
 
             migrationBuilder.DropTable(
+                name: "Inspector");
+
+            migrationBuilder.DropTable(
                 name: "Location");
+
+            migrationBuilder.DropTable(
+                name: "Department");
         }
     }
 }

@@ -17,5 +17,7 @@ namespace IEP.Api.Data
         public DbSet<IEP.Api.Model.Entities.Client> Client { get; set; }
 
         public DbSet<IEP.Api.Model.Entities.Job> Job { get; set; }
+
+        public DbSet<IEP.Api.Model.Entities.Inspector> Inspector { get; set; }
     }
 }

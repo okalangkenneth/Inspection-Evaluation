@@ -9,14 +9,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace IEP.Api.Data
 {
-    public class SeedData
+    public static class SeedData
     {
-        internal static async Task InitializeAsync(IServiceProvider services)
+        
+        public static async Task InitAsync(IServiceProvider services)
         {
             using var db = new IEPApiContext(services.GetRequiredService<DbContextOptions<IEPApiContext>>());
             if (!await db.Client.AnyAsync()) return;
-
-            
 
             var faker = new Faker("sv");
             var clients = new List<Client>();
@@ -28,6 +27,7 @@ namespace IEP.Api.Data
                 clients.Add(new Model.Entities.Client
                 {
                     CompanyName = faker.Company.CompanyName() + faker.Random.Word(),
+
                     Location = new Location()
                     {
                         Address = faker.Address.StreetAddress(),
@@ -35,44 +35,42 @@ namespace IEP.Api.Data
                     },
                     Inspectors = new Inspector[]
                     {
-                        new Inspector
-                        {
-                            FirstName = faker.Name.FirstName(),
-                            LastName = faker.Name.LastName()
-                        }
+
+                                new Inspector
+                                {
+                                    FirstName = faker.Name.FirstName(),
+                                    LastName = faker.Name.LastName(),
+                                    Email=faker.Internet.Email()
+                                }
                     },
 
                     Jobs = new Job[]
                     {
-                        new Job
-                        {
-                            Title = faker.Commerce.Department(),
-                            InspectionDateTime = DateTime.Now.AddDays(faker.Random.Int(-20, 20))
-                        }
+                                new Job
+                                {
+                                    Title = faker.Commerce.Department(),
+                                    InspectionDateTime = DateTime.Now.AddDays(faker.Random.Int(-20, 20))
+                                }
                     },
 
                     Samples = new Sample[]
                     {
-                        new Sample
-                        {
+                                new Sample
+                                {
 
-                            ProduceName=faker.Commerce.ProductName()
+                                    ProduceName=faker.Commerce.ProductName()
 
-                        },
+                                },
+                    }
 
-
-                     }
-
-                }); 
+                });
 
             }
             db.AddRange(clients);
             await db.SaveChangesAsync();
-           
+
         }
-
     }
-
 
 } 
 

@@ -20,7 +20,6 @@ namespace IEP.Api.Model.Entities
 
 
        public int ClientId { get; set; }
-
        public Client Client { get; set; }
 
 
@@ -29,6 +28,8 @@ namespace IEP.Api.Model.Entities
 
         public int InspectorId { get; set; }
         public Inspector Inspector { get; set; }
+
+        
 
        
 
