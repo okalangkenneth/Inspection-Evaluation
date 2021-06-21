@@ -9,7 +9,31 @@ This project is being designed to overcome most of the manual processes that wer
 ## Project description.
 The project is designed in such a way that many of the input operations are done through forms. The forms are capable of validating and checking the integrity and correctness of the input. The database will be built from Entity Framework according to codefirst method. Frontend will be from Bootstrap. The dynamic functionality in the front-end will be written with javascript.The application will have a .NET Core API that will intergarte with MVC Core web interface.
 
-### Project structure
+### User creteria
+The project will contain four types of users. The Administrator, Project Manager, Inspector and Quality controller. The administrator deals with total administration projects in the company. The administrator is able to to controll all the activities in the company. The project manager handles all the information of scheduling of the job to the inspector. The project leader monitors each inspectors performance. The project leader reports all activities of each inspector to the administrator at the end of each day's work. The inspector has to know the jobs assigned to him/her and update the daily activities,delays or any problems encountered. Below is a summary of user tasks.
+
+## Administrator
+* Handle all employee database.
+* Handle Client Information
+* Handle project details
+* Assign project to project leader
+* Monitor project status
+
+## Project leader
+* Handle Inspector details
+* Handle Job details
+* Assign Jobs to Inspector
+* Report to the administrator
+* Handles daily activities, dealys and other problems related to the job.
+
+## Inspector
+* View job
+* Update activity
+* Submit days report
+
+## Quality controller
+* Create a quality certificate
+
 
 
 
