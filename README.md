@@ -24,7 +24,7 @@ The project will contain five types of users. The Administrator, Project Manager
 * Handle Job details
 * Assign Jobs to Inspector
 * Report to the administrator
-* Handles daily activities, dealys and other problems related to the job.
+* Handles daily activities, delays and other problems related to the job.
 
 ### Inspector
 * View job
