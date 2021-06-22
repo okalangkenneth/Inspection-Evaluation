@@ -28,39 +28,35 @@ namespace IEP.Api.Data
                 {
                     CompanyName = faker.Company.CompanyName() + faker.Random.Word(),
 
-                    Location = new Location()
+                    JobLocation = new JobLocation()
                     {
                         Address = faker.Address.StreetAddress(),
                         CityTown = faker.Address.City()
+
                     },
                     Inspectors = new Inspector[]
                     {
-
-                                new Inspector
-                                {
-                                    FirstName = faker.Name.FirstName(),
-                                    LastName = faker.Name.LastName(),
-                                    Email=faker.Internet.Email()
-                                }
+                        new Inspector
+                        {
+                            FirstName=faker.Name.FirstName(),
+                            LastName = faker.Name.LastName(),
+                            Email=faker.Internet.Email()
+                        }
                     },
-
                     Jobs = new Job[]
                     {
-                                new Job
-                                {
-                                    Title = faker.Commerce.Department(),
-                                    InspectionDateTime = DateTime.Now.AddDays(faker.Random.Int(-20, 20))
-                                }
+                        new Job
+                        {
+                         Title = faker.Commerce.Department(),
+                         InspectionDateTime = DateTime.Now.AddDays(faker.Random.Int(-20, 20))
+                        }
                     },
-
                     Samples = new Sample[]
                     {
-                                new Sample
-                                {
-
-                                    ProduceName=faker.Commerce.ProductName()
-
-                                },
+                       new Sample
+                       {
+                       ProduceName=faker.Commerce.ProductName()
+                       },
                     }
 
                 });

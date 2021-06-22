@@ -9,7 +9,7 @@ namespace IEP.Api.Data
 {
     public class IEPApiContext : DbContext
     {
-        public IEPApiContext (DbContextOptions<IEPApiContext> options)
+        public IEPApiContext(DbContextOptions<IEPApiContext> options)
             : base(options)
         {
         }
@@ -18,6 +18,7 @@ namespace IEP.Api.Data
 
         public DbSet<IEP.Api.Model.Entities.Job> Job { get; set; }
 
-        public DbSet<IEP.Api.Model.Entities.Inspector> Inspector { get; set; }
+       
+
     }
 }

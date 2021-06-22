@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IEP.Api.Model.Entities
 {
-    public class Location
+    public class JobLocation
     {
         public int Id { get; set; }
         public string Address { get; set; }

@@ -12,9 +12,9 @@ namespace IEP.Api.Model.Entities
     {
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        public string Avatar { get; set; }
         public string FirstName { get; set; }
+        
 
         [Required]
         [MaxLength(50)]
