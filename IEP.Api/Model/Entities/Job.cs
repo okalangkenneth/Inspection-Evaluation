@@ -20,14 +20,14 @@ namespace IEP.Api.Model.Entities
 
 
        public int ClientId { get; set; }
-       public Client Client { get; set; }
+       //public Client Client { get; set; }
 
 
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
         public int InspectorId { get; set; }
-        public Inspector Inspector { get; set; }
+        //public Inspector Inspector { get; set; }
 
         
 

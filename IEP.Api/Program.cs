@@ -21,9 +21,16 @@ namespace IEP.Api
             {
                 var services = scope.ServiceProvider;
 
+                //Needed for migration issues
+                var db = services.GetRequiredService<IEPApiContext>();
+
                 try
                 {
-                    SeedData.InitAsync(services).Wait();
+                    //Ensures database is created
+                    db.Database.EnsureCreated();
+
+                    SeedData seedData = new SeedData(db);//Creates Seed Data instance to seed
+                    seedData.Seed(db);
                 }
                 catch (Exception ex)
                 {

@@ -29,12 +29,12 @@ namespace IEP.Api.Migrations
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LocationId")
+                    b.Property<int>("JobLocationId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LocationId");
+                    b.HasIndex("JobLocationId");
 
                     b.ToTable("Client");
                 });
@@ -61,19 +61,17 @@ namespace IEP.Api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<int?>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -84,9 +82,7 @@ namespace IEP.Api.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Inspector");
+                    b.ToTable("Inspectors");
                 });
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Job", b =>
@@ -120,12 +116,10 @@ namespace IEP.Api.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("InspectorId");
-
                     b.ToTable("Job");
                 });
 
-            modelBuilder.Entity("IEP.Api.Model.Entities.Location", b =>
+            modelBuilder.Entity("IEP.Api.Model.Entities.JobLocation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -140,7 +134,7 @@ namespace IEP.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Location");
+                    b.ToTable("JobLocations");
                 });
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Sample", b =>
@@ -170,18 +164,18 @@ namespace IEP.Api.Migrations
 
                     b.HasIndex("InspectorId");
 
-                    b.ToTable("Sample");
+                    b.ToTable("Samples");
                 });
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Client", b =>
                 {
-                    b.HasOne("IEP.Api.Model.Entities.Location", "Location")
+                    b.HasOne("IEP.Api.Model.Entities.JobLocation", "JobLocation")
                         .WithMany()
-                        .HasForeignKey("LocationId")
+                        .HasForeignKey("JobLocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Location");
+                    b.Navigation("JobLocation");
                 });
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Inspector", b =>
@@ -189,37 +183,21 @@ namespace IEP.Api.Migrations
                     b.HasOne("IEP.Api.Model.Entities.Client", null)
                         .WithMany("Inspectors")
                         .HasForeignKey("ClientId");
-
-                    b.HasOne("IEP.Api.Model.Entities.Department", null)
-                        .WithMany("Inspectors")
-                        .HasForeignKey("DepartmentId");
                 });
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Job", b =>
                 {
-                    b.HasOne("IEP.Api.Model.Entities.Client", "Client")
+                    b.HasOne("IEP.Api.Model.Entities.Client", null)
                         .WithMany("Jobs")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IEP.Api.Model.Entities.Department", "Department")
+                    b.HasOne("IEP.Api.Model.Entities.Department", null)
                         .WithMany("Jobs")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("IEP.Api.Model.Entities.Inspector", "Inspector")
-                        .WithMany()
-                        .HasForeignKey("InspectorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Department");
-
-                    b.Navigation("Inspector");
                 });
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Sample", b =>
@@ -260,8 +238,6 @@ namespace IEP.Api.Migrations
 
             modelBuilder.Entity("IEP.Api.Model.Entities.Department", b =>
                 {
-                    b.Navigation("Inspectors");
-
                     b.Navigation("Jobs");
 
                     b.Navigation("Samples");

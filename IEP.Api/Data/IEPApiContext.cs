@@ -18,7 +18,16 @@ namespace IEP.Api.Data
 
         public DbSet<IEP.Api.Model.Entities.Job> Job { get; set; }
 
-       
+        public DbSet<Department> Department { get; set; }
+
+        public DbSet<JobLocation> JobLocations { get; set; }
+
+        public DbSet<Sample> Samples { get; set; }
+
+        public DbSet<Inspector> Inspectors { get; set; }
+
+
+
 
     }
 }
