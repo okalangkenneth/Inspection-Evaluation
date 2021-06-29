@@ -12,7 +12,7 @@ namespace IEP.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientsController : ControllerBase
+    public class ClientsController : Controller
     {
         private ClientRepo clientRepo;
 
@@ -21,12 +21,13 @@ namespace IEP.Api.Controllers
             clientRepo = new ClientRepo(context);
         }
 
-        //// GET: api/Clients
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Client>>> GetAllClient(bool includeJobs = false)
-        //{
-        //    var result = await clientRepo.GetAllAsync(includeJobs);
-        //}
+        // GET: api/Clients
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Client>>> GetAllClient(bool includeJobs = false)
+        {
+                var result = await clientRepo.GetAllAsync(includeJobs);
+            return View(result);
+        }
 
         //// GET: api/Clients/5
         //[HttpGet("{id}")]
