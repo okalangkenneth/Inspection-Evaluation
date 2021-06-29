@@ -21,12 +21,12 @@ namespace IEP.Api.Controllers
             clientRepo = new ClientRepo(context);
         }
 
-        // GET: api/Clients
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Client>>> GetAllClient(bool includeJobs = false)
-        {
-            var result = await clientRepo.GetAllAsync(includeJobs);
-        }
+        //// GET: api/Clients
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Client>>> GetAllClient(bool includeJobs = false)
+        //{
+        //    var result = await clientRepo.GetAllAsync(includeJobs);
+        //}
 
         //// GET: api/Clients/5
         //[HttpGet("{id}")]

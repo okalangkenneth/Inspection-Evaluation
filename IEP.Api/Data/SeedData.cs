@@ -15,7 +15,7 @@ namespace IEP.Api.Data
         public static async Task InitAsync(IServiceProvider services)
         {
             using var db = new IEPApiContext(services.GetRequiredService<DbContextOptions<IEPApiContext>>());
-            if (!await db.Client.AnyAsync()) return;
+            if (await db.Client.AnyAsync()) return;
 
             var faker = new Faker("sv");
             var clients = new List<Client>();

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 
@@ -12,27 +13,30 @@ namespace IEP.Api
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers(opt => opt.ReturnHttpNotAcceptable = true)
-                .AddNewtonsoftJson()
-                .AddXmlDataContractSerializerFormatters();
+            //services.AddControllers(opt => opt.ReturnHttpNotAcceptable = true)
+            //    .AddNewtonsoftJson()
+            //    .AddXmlDataContractSerializerFormatters();
+            services.AddControllersWithViews();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IEP.Api", Version = "v1" });
             });
 
+            services.Configure<IEPApiContext>(db => db.Database.Migrate());
+
             services.AddDbContext<IEPApiContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("IEPApiContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("IEPApiContext")).LogTo(System.Console.WriteLine, LogLevel.Information));
 
             services.AddAutoMapper(typeof(Startup));
         }
