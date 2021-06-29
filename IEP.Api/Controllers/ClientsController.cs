@@ -12,7 +12,7 @@ namespace IEP.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientsController : ControllerBase
+    public class ClientsController : Controller
     {
         private ClientRepo clientRepo;
 
@@ -25,7 +25,8 @@ namespace IEP.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetAllClient(bool includeJobs = false)
         {
-            var result = await clientRepo.GetAllAsync(includeJobs);
+                var result = await clientRepo.GetAllAsync(includeJobs);
+            return View(result);
         }
 
         //// GET: api/Clients/5
